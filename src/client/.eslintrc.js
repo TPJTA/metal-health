@@ -1,6 +1,7 @@
+const isProd = process.env.NODE_ENV === "production"
 module.exports = {
   parserOptions: {
-    project: 'src/client/tsconfig.json',
+    project: isProd ? './tsconfig.json' : 'src/client/tsconfig.json',
     sourceType: 'module',
   },
   extends: [
