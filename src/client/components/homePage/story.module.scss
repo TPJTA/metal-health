@@ -1,0 +1,48 @@
+.story {
+  margin-top: 48px;
+}
+.story-title {
+  @extend %main-title;
+}
+
+.story-desc {
+  @extend %main-desc;
+}
+
+.story-box {
+  padding: 0 10%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  .story-card {
+    margin-top: 20px;
+    width: 40%;
+
+    @include mobile {
+      width: 80%;
+      display: none;
+
+      &:nth-of-type(-n+3) {
+        display: block;
+      }
+    }
+  }
+
+  .story-more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+
+    .story-more-link {
+      font-size: 14px;
+      color: #0b75cb;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

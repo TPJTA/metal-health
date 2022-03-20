@@ -1,0 +1,11 @@
+.testing {
+  margin-top: 48px;
+}
+
+.testing-title {
+  @extend %main-title;
+}
+
+.testing-desc {
+  @extend %main-desc;
+}

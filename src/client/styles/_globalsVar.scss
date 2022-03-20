@@ -1,0 +1,30 @@
+%homePage {
+  padding-top: 85px;
+}
+
+%seperator {
+  height: 24px;
+  background-size: cover;
+  background-image: url("~assets/images/cw2.png");
+  position: relative;
+  margin-bottom: -10px;
+}
+
+%main-title {
+  margin-bottom: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+%main-desc {
+  margin-bottom: 12px;
+  font-size: 16px;
+  text-align: center;
+}
+
+@mixin mobile {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}

@@ -6,7 +6,11 @@ module.exports = {
   },
   extends: [
     "next/core-web-vitals",
+    "plugin:react/recommended",
     'plugin:prettier/recommended',
   ],
+  rules: {
+    "react/self-closing-comp": "error"
+  },
   ignorePatterns: ['.eslintrc.js'],
 };
