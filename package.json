@@ -24,7 +24,9 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/typeorm": "^8.0.3",
     "antd": "^4.19.2",
+    "mysql2": "^2.3.3",
     "next": "^12.0.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -32,7 +34,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "sass": "^1.49.9",
-    "swiper": "^8.0.7"
+    "swiper": "^8.0.7",
+    "typeorm": "^0.3.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",

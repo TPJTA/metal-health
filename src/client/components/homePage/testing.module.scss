@@ -9,3 +9,81 @@
 .testing-desc {
   @extend %main-desc;
 }
+
+.testing-box {
+  position: relative;
+  padding: 0 20%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  @include mobile {
+    padding: 0 10%;
+
+    :global(.ant-card-cover) {
+      max-height: 200px;
+      overflow: hidden;
+    }
+  }
+
+  .testing-button {
+    position: absolute;
+    padding: 8px 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: rgba(0,0,0,.5);
+    border-radius: 8px;
+    color: #fff;
+    opacity: 0;
+    transition: opacity .2s;
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+
+  .testing-item {
+    margin: 20px;
+    width: 25%;
+    border-radius: 5%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    @include mobile {
+      width: 100%;
+      display: none;
+
+      &:nth-of-type(-n+4) {
+        display: block;
+      }
+    }
+
+    &:hover {
+      .testing-button {
+        opacity: 1;
+      }
+    }
+
+    .testing-item-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .testing-item-times {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .testing-item-desc {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2; 
+      overflow: hidden;
+      text-overflow:  ellipsis;
+      font-size: 14px;
+    }
+  }
+}

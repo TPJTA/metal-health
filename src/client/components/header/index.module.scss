@@ -24,7 +24,9 @@
 }
 
 .nav {
+  justify-content: center;
   border: none;
+  flex-grow: 1;
 
   @include mobile {
     position: absolute;

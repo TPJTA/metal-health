@@ -61,7 +61,7 @@ function Header() {
             </Menu.Item>
           ))}
         </Menu>
-        <Button type="primary">咨询师入口</Button>
+        <Button type="link">咨询师入口</Button>
       </div>
     </div>
   );
