@@ -15,11 +15,11 @@ export class Testing {
   @Column({ type: 'varchar', comment: '测试名字' })
   name: string;
 
-  @Column({ type: 'varchar', comment: '测试描述' })
+  @Column({ type: 'text', comment: '测试描述' })
   desc: string;
 
-  @Column({ type: 'number', comment: '测试类型' })
-  type: number; // 情感, 性格, 人际, 能力
+  @Column({ type: 'int', comment: '测试类型' })
+  type: number; // 健康, 性格, 社交, 能力
 
   @OneToMany(() => Question, (question) => question.testing)
   questions: Question[];
@@ -52,7 +52,6 @@ export class Question {
 
 interface resultType {
   [index: number]: {
-    name: string;
     desc: string;
     score: number;
   };

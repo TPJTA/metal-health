@@ -4,6 +4,9 @@ const nextConfig = {
   sassOptions: {
     additionalData: `@import "@/styles/globalsVar.scss";`,
   },
+  images: {
+    domains: ['ossimg.xinli001.com'],
+  },
   distDir: '../../.next',
   webpack(config) {
     config.module.rules.push({

@@ -1,16 +1,52 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Header from '@/components/header';
 import styles from '@/styles/info.module.scss';
 import { Input, List, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { storys } from '@/mocks/story';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { HTMLToText } from '@/libs/tool';
+import type { Ariticle } from '@/libs/types';
+import useApi from '@/api/hook';
 
 const Info: NextPage = function () {
   const router = useRouter();
+  const { getAriticleList } = useApi(['getAriticleList']);
+  const [storys, setStory] = useState<Ariticle[]>([]);
+  const page = useRef(1);
+  const [showMore, setShowMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchKey, setSearchKey] = useState('');
+
+  const getAriticle = () => {
+    if (!isLoading) {
+      setIsLoading(true);
+      getAriticleList({ page: page.current, size: 6, title: searchKey }).then(
+        (res) => {
+          let curStory;
+          if (page.current === 1) {
+            curStory = [...res.data];
+          } else {
+            curStory = [...storys, ...res.data];
+          }
+          setStory(curStory);
+          page.current++;
+          setIsLoading(false);
+          if (curStory.length >= res.count) {
+            setShowMore(false);
+          } else {
+            setShowMore(true);
+          }
+        },
+      );
+    }
+  };
+
+  useEffect(() => {
+    page.current = 1;
+    getAriticle();
+  }, [searchKey]);
 
   return (
     <div className={styles['info']}>
@@ -18,11 +54,11 @@ const Info: NextPage = function () {
         <title>文章</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <Header />
       <div className={styles['info-contain']}>
         <div className={styles['info-header']}>
           <div className={styles['info-headline']}>查询你的故事</div>
           <Input
+            onChange={(e) => setSearchKey(e.target.value)}
             prefix={<SearchOutlined />}
             placeholder="搜索...."
             className={styles['info-search']}
@@ -38,19 +74,32 @@ const Info: NextPage = function () {
           renderItem={(item) => (
             <List.Item
               key={item.id}
-              extra={<Image src={item.cover} alt="" />}
+              extra={
+                <div className={styles['info-image']}>
+                  <Image src={item.cover} alt="" layout="fill" />
+                </div>
+              }
               onClick={() => router.push(`/info/${item.id}`)}
             >
               <List.Item.Meta title={item.title} />
-              <div className={styles['info-content']}>{item.content}</div>
+              <div className={styles['info-content']}>
+                {HTMLToText(item.content)}
+              </div>
             </List.Item>
           )}
         />
-        <div className={styles['info-more']}>
-          <Button block type="primary">
-            查看更多
-          </Button>
-        </div>
+        {showMore && (
+          <div className={styles['info-more']}>
+            <Button
+              block
+              type="primary"
+              loading={isLoading}
+              onClick={getAriticle}
+            >
+              查看更多
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -61,7 +61,9 @@ function Header() {
             </Menu.Item>
           ))}
         </Menu>
-        <Button type="link">咨询师入口</Button>
+        <Button type="link">
+          <Link href="/admin/login">咨询师入口</Link>
+        </Button>
       </div>
     </div>
   );

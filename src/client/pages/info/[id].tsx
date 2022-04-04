@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/info.module.scss';
 import { storys } from '@/mocks/story';
-import type {
-  GetStaticProps,
-  GetStaticPaths,
-  NextPage,
-  InferGetStaticPropsType,
-} from 'next';
 import Image from 'next/image';
 import Head from 'next/head';
-import Header from '@/components/header';
 import { Skeleton } from 'antd';
 import { useRouter } from 'next/router';
+import useApi from '@/api/hook';
+import type { Ariticle } from '@/libs/types';
 
 function InfoItem() {
   const router = useRouter();
-  const [story, setStory] = useState<typeof storys[number]>();
+  const [story, setStory] = useState<Ariticle>();
+  const { getAriticle } = useApi(['getAriticle']);
   useEffect(() => {
     const { id } = router.query;
     if (id) {
-      const curStory = storys.find((i) => i.id.toString() === id);
-      if (curStory) {
-        setStory(curStory);
-      } else {
-        router.replace('/404');
-      }
+      getAriticle(id as string)
+        .then((res) => {
+          if (res.data) {
+            setStory(res.data);
+          } else {
+            router.replace('/404');
+          }
+        })
+        .catch(() => {
+          router.replace('/404');
+        });
     }
-  }, [router]);
+  }, [router, getAriticle]);
   // const story = storys[];
 
   return (
@@ -35,7 +36,6 @@ function InfoItem() {
         <title>文章</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <Header />
       {story ? (
         <div className={styles['info-item-cotain']}>
           <div className={styles['info-item-cover']}>
@@ -44,7 +44,10 @@ function InfoItem() {
 
           <div className={styles['info-item-box']}>
             <div className={styles['info-item-title']}>{story.title}</div>
-            <div className={styles['info-item-content']}>{story.content}</div>
+            <div
+              className={styles['info-item-content']}
+              dangerouslySetInnerHTML={{ __html: story.content }}
+            />
           </div>
         </div>
       ) : (
