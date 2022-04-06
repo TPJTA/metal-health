@@ -1,5 +1,5 @@
 import { Controller, Get, ValidationPipe, Query } from '@nestjs/common';
-import { GetArticleDTO, GetArticleListDTO } from './dto/getArticle.dto';
+import { GetArticleDTO, GetArticleListDTO } from './dto/article.dto';
 import { AriticleService } from './ariticle.service';
 @Controller('/api/aritice')
 export class AriticleController {
@@ -13,7 +13,7 @@ export class AriticleController {
     return this.ariticleService.getAriticleById(id);
   }
 
-  @Get('/all')
+  @Get('/list')
   getArticleList(
     @Query(new ValidationPipe({ transform: true }))
     { page = 1, size = 10, title }: GetArticleListDTO,

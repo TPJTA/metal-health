@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/info.module.scss';
-import { storys } from '@/mocks/story';
 import Image from 'next/image';
 import Head from 'next/head';
 import { Skeleton } from 'antd';
@@ -11,7 +10,7 @@ import type { Ariticle } from '@/libs/types';
 function InfoItem() {
   const router = useRouter();
   const [story, setStory] = useState<Ariticle>();
-  const { getAriticle } = useApi(['getAriticle']);
+  const { getAriticle } = useApi('getAriticle');
   useEffect(() => {
     const { id } = router.query;
     if (id) {

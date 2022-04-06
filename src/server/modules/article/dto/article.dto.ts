@@ -1,25 +1,16 @@
 import { Type } from 'class-transformer';
-import { IsInt, IsOptional, IsString, Min } from 'class-validator';
+import { IsInt, IsOptional, IsString } from 'class-validator';
+import { ListDTO } from 'src/server/public/dto';
 
+/** 获取单一文章 */
 export class GetArticleDTO {
   @Type(() => Number)
   @IsInt()
   readonly id: number;
 }
 
-export class GetArticleListDTO {
-  @IsOptional()
-  @Type(() => Number)
-  @IsInt()
-  @Min(1)
-  readonly page?: number;
-
-  @IsOptional()
-  @Type(() => Number)
-  @IsInt()
-  @Min(1)
-  readonly size?: number;
-
+/** 获取文章列表 */
+export class GetArticleListDTO extends ListDTO {
   @IsOptional()
   @IsString()
   readonly title?: string;

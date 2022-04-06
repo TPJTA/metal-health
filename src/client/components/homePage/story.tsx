@@ -9,7 +9,7 @@ import useApi from '@/api/hook';
 
 function Story() {
   const router = useRouter();
-  const { getAriticleList } = useApi(['getAriticleList']);
+  const { getAriticleList } = useApi('getAriticleList');
   const [storys, setStory] = useState<Ariticle[]>([]);
 
   useEffect(() => {

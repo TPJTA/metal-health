@@ -5,15 +5,15 @@ import {
   initRequestInterceptors,
   initResponseInterceptors,
 } from './interceptors';
-import * as rootApi from './article';
+import * as rootApi from './root';
 
 let axiosInstance: AxiosInstance;
 
 type apiName = keyof typeof rootApi;
 
-export default function useApi<T extends apiName>(
-  apiNames: T[],
-): Record<T, ReturnType<typeof rootApi[T]>> {
+export default function useApi<T extends apiName[]>(
+  ...apiNames: [...T]
+): Record<T[number], ReturnType<typeof rootApi[T[number]]>> {
   const router = useRouter();
 
   // 初始化axios
@@ -28,8 +28,10 @@ export default function useApi<T extends apiName>(
   }
 
   const apiObject = useMemo(() => {
-    const api: Record<T, ReturnType<typeof rootApi[T]>> = {} as any;
-    apiNames.forEach((i) => (api[i] = rootApi[i](axiosInstance) as any));
+    const api: any = {};
+    apiNames.forEach((i) => {
+      api[i] = rootApi[i](axiosInstance);
+    });
     return api;
   }, apiNames);
 

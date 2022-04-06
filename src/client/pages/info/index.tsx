@@ -12,7 +12,7 @@ import useApi from '@/api/hook';
 
 const Info: NextPage = function () {
   const router = useRouter();
-  const { getAriticleList } = useApi(['getAriticleList']);
+  const { getAriticleList } = useApi('getAriticleList');
   const [storys, setStory] = useState<Ariticle[]>([]);
   const page = useRef(1);
   const [showMore, setShowMore] = useState(true);

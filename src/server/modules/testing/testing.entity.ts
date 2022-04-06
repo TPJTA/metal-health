@@ -30,10 +30,9 @@ export class Testing {
   @Column({ type: 'json', comment: '测试结果' })
   result: resultType;
 
-  @Column({ type: 'int', comment: '测试次数' })
+  @Column({ type: 'int', comment: '测试次数', default: 0 })
   times: number;
 }
-
 /** 测试问题 */
 @Entity()
 export class Question {
@@ -43,16 +42,23 @@ export class Question {
   @ManyToOne(() => Testing, (testing) => testing.questions)
   testing: Testing;
 
+  @Column({ type: 'varchar', comment: '问题图片', nullable: true })
+  img: string | null;
+
   @Column({ type: 'varchar', comment: '问题题目' })
   title: string;
 
   @Column({ type: 'json', comment: '问题选项' })
-  content: string[];
+  answers: answerType[];
 }
 
+type answerType = {
+  title: string;
+  /** score[i]<= curScore < score[i+1] 则为当前答案, 按score升序排列 */
+  score: number;
+};
+
 interface resultType {
-  [index: number]: {
-    desc: string;
-    score: number;
-  };
+  publicStr?: string;
+  result: Array<{ desc: string; score: number }>;
 }
