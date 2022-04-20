@@ -38,4 +38,4 @@ lerna-debug.log*
 pull.sh
 
 # config
-ormconfig.json
+.env

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '@/styles/info.module.scss';
-import { Input, List, Button } from 'antd';
+import { Input, List, Button, Skeleton } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -65,41 +65,48 @@ const Info: NextPage = function () {
           />
         </div>
 
-        <List
-          className={styles['info-list']}
-          itemLayout="vertical"
-          bordered
-          size="large"
-          dataSource={storys}
-          renderItem={(item) => (
-            <List.Item
-              key={item.id}
-              extra={
-                <div className={styles['info-image']}>
-                  <Image src={item.cover} alt="" layout="fill" />
+        <Skeleton
+          active
+          className={styles['info-skeleton']}
+          paragraph={{ rows: 20 }}
+          loading={storys.length === 0}
+        >
+          <List
+            className={styles['info-list']}
+            itemLayout="vertical"
+            bordered
+            size="large"
+            dataSource={storys}
+            renderItem={(item) => (
+              <List.Item
+                key={item.id}
+                extra={
+                  <div className={styles['info-image']}>
+                    <Image src={item.cover} alt="" layout="fill" />
+                  </div>
+                }
+                onClick={() => router.push(`/info/${item.id}`)}
+              >
+                <List.Item.Meta title={item.title} />
+                <div className={styles['info-content']}>
+                  {HTMLToText(item.content)}
                 </div>
-              }
-              onClick={() => router.push(`/info/${item.id}`)}
-            >
-              <List.Item.Meta title={item.title} />
-              <div className={styles['info-content']}>
-                {HTMLToText(item.content)}
-              </div>
-            </List.Item>
+              </List.Item>
+            )}
+          />
+          {showMore && (
+            <div className={styles['info-more']}>
+              <Button
+                block
+                type="primary"
+                loading={isLoading}
+                onClick={getAriticle}
+              >
+                查看更多
+              </Button>
+            </div>
           )}
-        />
-        {showMore && (
-          <div className={styles['info-more']}>
-            <Button
-              block
-              type="primary"
-              loading={isLoading}
-              onClick={getAriticle}
-            >
-              查看更多
-            </Button>
-          </div>
-        )}
+        </Skeleton>
       </div>
     </div>
   );

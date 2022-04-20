@@ -1,0 +1,192 @@
+.testing {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.testing-box {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.testing-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 0 0 0;
+  height: 140px;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,.2);
+
+  .testing-headline {
+    padding-left: 30px;
+    font-size: 22px;
+    font-weight: bold;
+  }
+}
+
+.testing-menu {
+  font-size: 15px;
+  font-weight: bold;
+  @include mobile {
+    margin: 0 auto;
+  }
+
+
+  .testing-menu-item {
+    width: 120px;
+    text-align: center;
+
+    @include mobile {
+      width: auto;
+      flex: 0 1;
+    }
+  }
+}
+
+.testing-skeleton {
+  margin-top: 60px;
+  background: #fff;
+  padding: 16px 24px;
+}
+
+.testing-list {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+}
+
+.testing-item {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  .testing-cover {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+
+    @include mobile {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  .testing-contain {
+    height: 160px;
+    margin-left: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .testing-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .testing-desc {
+    font-size: 14px;
+    color: #666;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; 
+    overflow: hidden;
+    text-overflow:  ellipsis;
+  }
+}
+
+.testing-more {
+  margin: 40px auto;
+  width: 20%;
+  text-align: center;
+
+  @include mobile {
+    width: 30%;
+    margin: 20px auto;
+  }
+}
+
+.testing-item-page {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.testing-item-page-box {
+  max-width: 1024px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.testing-section {
+  display: flex;
+  margin-top: 40px;
+  background: #fff;
+  padding: 24px 24px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+
+  .testing-title {
+    font-size: 30px;
+    color: #383540;
+    font-weight: bold;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+
+    @include mobile {
+      font-size: 18px;
+    }
+  }
+
+  .testing-cover {
+    position: relative;
+    width: 80%;
+    height: 400px;
+
+    @include mobile {
+      width: 90%;
+      height: 150px;
+    }
+  }
+
+  .testing-extra {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    font-size: 20px;
+    color: #767676;
+
+    @include mobile {
+      font-size: 15px;
+    }
+  }
+
+  .testing-button {
+    font-size: 20px;
+    padding: 8px 50px;
+    box-sizing: content-box;
+    font-weight: bold;
+
+    @include mobile {
+      padding: 4px 45px;
+      font-size: 18px;
+    }
+  }
+
+  .testing-desc {
+    padding: 30px;
+    font-size: 18px;
+
+    @include mobile {
+      padding: 15px;
+      font-size: 15px;
+    }
+  }
+}
+

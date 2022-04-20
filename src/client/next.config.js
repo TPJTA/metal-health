@@ -5,7 +5,7 @@ const nextConfig = {
     additionalData: `@import "@/styles/globalsVar.scss";`,
   },
   images: {
-    domains: ['ossimg.xinli001.com', 'res.xmcs.cn'],
+    domains: ['ossimg.xinli001.com', 'res.xmcs.cn', process.env.HOST_NAME],
   },
   distDir: '../../.next',
   webpack(config) {

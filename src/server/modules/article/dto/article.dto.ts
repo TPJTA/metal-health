@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import { IsInt, IsOptional, IsString } from 'class-validator';
-import { ListDTO } from 'src/server/public/dto';
+import { ListDTO } from 'src/server/libs/publicDTO';
 
 /** 获取单一文章 */
 export class GetArticleDTO {

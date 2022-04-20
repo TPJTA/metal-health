@@ -10,3 +10,23 @@ export const getTestingList: ApiType<
 > = (axios) => (params) => {
   return axios.get('/testing/list', { params });
 };
+
+export type TestingType = Pick<
+  Testing,
+  'id' | 'desc' | 'cover' | 'name' | 'times' | 'type'
+>;
+
+export const getTesting: ApiType<{ data: TestingType }, [string]> =
+  (axios) => (id) => {
+    return axios.get('/testing', { params: { id } });
+  };
+
+export type TestingQustion = Pick<
+  Testing,
+  'questions' | 'id' | 'result' | 'times'
+>;
+
+export const getTestingQustion: ApiType<{ data: TestingQustion }, [string]> =
+  (axios) => (id) => {
+    return axios.get('/testing/question', { params: { id } });
+  };

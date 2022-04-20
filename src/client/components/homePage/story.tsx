@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { HTMLToText } from '@/libs/tool';
 import type { Ariticle } from '@/libs/types';
 import useApi from '@/api/hook';
+import Image from 'next/image';
 
 function Story() {
   const router = useRouter();
@@ -31,7 +32,7 @@ function Story() {
             onClick={() => router.push(`/info/${i.id}`)}
           >
             <Card.Meta
-              avatar={<Avatar src={i.cover} shape="square" size={64} />}
+              avatar={<Image src={i.cover} alt="" width="64px" height="64px" />}
               title={i.title}
               description={HTMLToText(i.content)}
             />

@@ -8,17 +8,21 @@ $ npm run dev
 $ npm run prod
 ```
 
+## Featurn
 
-## Support
+### 文章系统
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
++ [x] 数据收集
++ [x] 文章展示
++ [ ] 文章管理(增删改查)
 
-## Stay in touch
+### 测试系统
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
++ [x] 数据收集
++ [ ] 测试展示即使用
++ [ ] 测试管理
 
-## License
+### 中台
 
-Nest is [MIT licensed](LICENSE).
++ [ ] 匿名邮箱回复及发送
++ [ ] 各种数据的图标展示
