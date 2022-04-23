@@ -103,7 +103,12 @@ function Testing() {
         >
           <div className={styles['testing-list']}>
             {testingList.map((item) => (
-              <Link passHref href={`/testing/${item.id}`} key={item.id}>
+              <Link
+                passHref
+                href={`/testing/[id]`}
+                as={`/testing/${item.id}`}
+                key={item.id}
+              >
                 <div className={styles['testing-item']}>
                   <div className={styles['testing-cover']}>
                     <Image

@@ -8,7 +8,7 @@ const proxyOption: Options = {
   target: 'https://res.xmcs.cn',
   changeOrigin: true,
   pathRewrite: {
-    '^/img/xmcs': '/img',
+    '^/xmcs': '/',
   },
   secure: false,
   onProxyReq: (proxyReq) => {

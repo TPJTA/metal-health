@@ -33,6 +33,7 @@ specifiers:
   eslint-plugin-prettier: ^4.0.0
   html-to-text: ^8.1.0
   http-proxy-middleware: ^2.0.4
+  icons: link:@ant-design\icons
   jest: ^27.2.5
   js-cookie: ^3.0.1
   mysql2: ^2.3.3
@@ -69,6 +70,7 @@ dependencies:
   class-validator: 0.13.2
   html-to-text: 8.2.0
   http-proxy-middleware: 2.0.4_@types+express@4.17.13
+  icons: link:@ant-design/icons
   js-cookie: 3.0.1
   mysql2: 2.3.3
   next: 12.1.5_7cvnitghizepsonag6tkegq6mu

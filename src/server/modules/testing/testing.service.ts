@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Testing, Question } from './testing.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Not, Repository } from 'typeorm';
 
 @Injectable()
 export class TestingService {
@@ -20,7 +20,7 @@ export class TestingService {
 
   async getTestingQuestion(id) {
     const data = await this.testing.findOne({
-      select: ['questions', 'id', 'result', 'times'],
+      select: ['questions', 'id', 'result', 'times', 'name'],
       relations: ['questions'],
       where: { id },
     });

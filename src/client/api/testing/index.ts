@@ -23,7 +23,7 @@ export const getTesting: ApiType<{ data: TestingType }, [string]> =
 
 export type TestingQustion = Pick<
   Testing,
-  'questions' | 'id' | 'result' | 'times'
+  'questions' | 'id' | 'result' | 'times' | 'name'
 >;
 
 export const getTestingQustion: ApiType<{ data: TestingQustion }, [string]> =

@@ -29,6 +29,11 @@ function TestingItem() {
     }
   }, [router, getTesting]);
 
+  const startTesting = () => {
+    const { id } = router.query;
+    router.push(`/testing/${id}/question`);
+  };
+
   return (
     <div className={styles['testing-item-page']}>
       <div className={styles['testing-item-page-box']}>
@@ -58,6 +63,7 @@ function TestingItem() {
               type="primary"
               size="large"
               shape="round"
+              onClick={startTesting}
             >
               开始测试
             </Button>
