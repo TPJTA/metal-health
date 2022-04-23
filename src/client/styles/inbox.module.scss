@@ -1,0 +1,47 @@
+.inbox {
+  background-color: #f9f9f9;
+  min-height: calc(100vh - 85px);
+  overflow: hidden;
+}
+
+.inbox-contain {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding-top: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.inbox-title {
+  padding-left: 30px;
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.inbox-form {
+  padding: 30px;
+
+
+  :global(.ant-form-item-has-error) {
+    :global(.ql-container),:global(.ql-toolbar) {
+      border-color: #ff4d4f;
+    }
+  }
+}
+
+.form-quill {
+
+  :global(.ql-container) {
+    height: 300px;
+    transition: all 0.3s;
+
+    @include mobile {
+      height: 250px;
+    }
+  }
+
+  :global(.ql-toolbar) {
+    transition: all 0.3s;
+  }
+}

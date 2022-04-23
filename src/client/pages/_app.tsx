@@ -4,6 +4,7 @@ import '@/styles/global.scss';
 import 'antd/dist/antd.css';
 import MainLayout from '@/layouts/main';
 import AdminLayout from '@/layouts/admin';
+import 'react-quill/dist/quill.snow.css';
 import { useRouter } from 'next/router';
 
 const layouts = [

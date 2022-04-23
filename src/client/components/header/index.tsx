@@ -29,7 +29,7 @@ const routers = [
     icon: <EditOutlined className={styles['nav-icon']} />,
   },
   {
-    path: '/question',
+    path: '/inbox',
     name: '匿名提问',
     icon: <CommentOutlined className={styles['nav-icon']} />,
   },
