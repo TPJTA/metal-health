@@ -3,7 +3,14 @@ import styles from '@/styles/testing.module.scss';
 import useApi from '@/api/hook';
 import { useRouter } from 'next/router';
 import type { TestingQustion } from '@/api/testing';
-import { Progress, Radio, Button, Space, RadioGroupProps, Result } from 'antd';
+import {
+  Progress,
+  Radio,
+  Button,
+  Space,
+  RadioGroupProps,
+  Skeleton,
+} from 'antd';
 import Image from 'next/image';
 
 function Question() {
@@ -62,7 +69,7 @@ function Question() {
           {questionData?.name}
         </div>
         {questionData && curQuestionIndex >= questionData.questions.length ? (
-          <TestingResult result={questionData.result} scoreArr={scoreArr} />
+          <TestingResult id={router.query.id as string} scoreArr={scoreArr} />
         ) : (
           <div className={styles['testing-question-content']}>
             <div className={styles['testing-question-progress']}>
@@ -142,41 +149,47 @@ function Question() {
 }
 
 const TestingResult: React.FC<{
+  id: string;
   scoreArr: number[];
-  result: TestingQustion['result'];
-}> = ({ scoreArr, result }) => {
+}> = ({ scoreArr, id }) => {
+  const [result, setResult] = useState<{ resultStr: string; result: string }>();
   const score = useMemo(() => scoreArr.reduce((p, c) => p + c), [scoreArr]);
+  const { getTestRes } = useApi('getTestRes');
+  useEffect(() => {
+    console.log(1);
 
-  const resultStr = useMemo(() => {
-    let resultIndex = result.result.findIndex((item) => score < item.score);
-    if (resultIndex === -1) {
-      resultIndex = result.result.length - 1;
-    } else {
-      resultIndex--;
-    }
-    return result.result[resultIndex];
-  }, [result, score]);
+    getTestRes(id, score).then((res) => {
+      setResult(res.data);
+    });
+  }, [getTestRes, score, id]);
 
   return (
     <div className={styles['testing-result']}>
-      <div className={styles['testing-result-content']}>
-        <div className={styles['testing-result-title']}>测试结果</div>
-        <div className={styles['testing-result-score']}>
-          你的分数为:{' '}
-          <span className={styles['testing-result-score-num']}>{score}</span>
+      <Skeleton
+        className={styles['testing-skeleton']}
+        paragraph={{ rows: 20 }}
+        active
+        loading={!result}
+      >
+        <div className={styles['testing-result-content']}>
+          <div className={styles['testing-result-title']}>测试结果</div>
+          <div className={styles['testing-result-score']}>
+            你的分数为:{' '}
+            <span className={styles['testing-result-score-num']}>{score}</span>
+          </div>
+          <div
+            className={styles['testing-result-desc']}
+            dangerouslySetInnerHTML={{ __html: result?.result ?? '' }}
+          />
         </div>
-        <div
-          className={styles['testing-result-desc']}
-          dangerouslySetInnerHTML={{ __html: resultStr.desc }}
-        />
-      </div>
-      <div className={styles['testing-result-analysis']}>
-        <div className={styles['testing-result-title']}>结果分析</div>
-        <div
-          className={styles['testing-result-analysis-content']}
-          dangerouslySetInnerHTML={{ __html: result.publicStr ?? '' }}
-        />
-      </div>
+        <div className={styles['testing-result-analysis']}>
+          <div className={styles['testing-result-title']}>结果分析</div>
+          <div
+            className={styles['testing-result-analysis-content']}
+            dangerouslySetInnerHTML={{ __html: result?.resultStr ?? '' }}
+          />
+        </div>
+      </Skeleton>
     </div>
   );
 };

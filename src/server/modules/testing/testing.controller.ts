@@ -1,5 +1,9 @@
 import { Controller, Get, Post, ValidationPipe, Query } from '@nestjs/common';
-import { GetTestingListDTO, GetTestingDTO } from './dto/testing.dto';
+import {
+  GetTestingListDTO,
+  GetTestingDTO,
+  GetTestingResultDTO,
+} from './dto/testing.dto';
 import { TestingService } from './testing.service';
 
 @Controller('/api/testing')
@@ -22,6 +26,14 @@ export class TestingController {
     return this.testingService.getTestingQuestion(id);
   }
 
+  @Get('/result')
+  getTestingResult(
+    @Query(new ValidationPipe({ transform: true }))
+    { id, score }: GetTestingResultDTO,
+  ) {
+    return this.testingService.getTestingRes(id, score);
+  }
+
   @Get('/list')
   async getTestingList(
     @Query(new ValidationPipe({ transform: true }))
@@ -33,5 +45,10 @@ export class TestingController {
   @Post('/add')
   async addTesting() {
     return 'success';
+  }
+
+  @Get('/test')
+  async test() {
+    return this.testingService.getTestingRes(1, 0);
   }
 }

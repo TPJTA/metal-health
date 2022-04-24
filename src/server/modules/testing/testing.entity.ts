@@ -27,8 +27,11 @@ export class Testing {
   @Column({ type: 'varchar', comment: '测试图片' })
   cover: string;
 
-  @Column({ type: 'json', comment: '测试结果' })
-  result: resultType;
+  @Column({ type: 'text', comment: '结果参考', nullable: true })
+  resultStr?: string;
+
+  @OneToMany(() => Result, (result) => result.testing)
+  results: Result[];
 
   @Column({ type: 'int', comment: '测试次数', default: 0 })
   times: number;
@@ -52,13 +55,26 @@ export class Question {
   answers: answerType[];
 }
 
+@Entity()
+export class Result {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @ManyToOne(() => Testing, (testing) => testing.results)
+  testing: Testing;
+
+  @Column({ type: 'text', comment: '结果描述' })
+  desc: string;
+
+  @Column({ type: 'int', comment: '分数' })
+  score: number;
+
+  @Column({ type: 'int', default: 0, comment: '测试结果次数' })
+  times: number;
+}
+
 type answerType = {
   title: string;
   /** score[i]<= curScore < score[i+1] 则为当前答案, 按score升序排列 */
   score: number;
 };
-
-interface resultType {
-  publicStr?: string;
-  result: Array<{ desc: string; score: number }>;
-}

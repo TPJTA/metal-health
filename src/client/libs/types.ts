@@ -12,7 +12,6 @@ export interface Testing {
   type: number;
   questions: Question[];
   cover: string;
-  result: resultType;
   times: number;
 }
 
@@ -29,8 +28,3 @@ type answerType = {
   /** score[i]<= curScore < score[i+1] 则为当前答案, 按score升序排列 */
   score: number;
 };
-
-interface resultType {
-  publicStr?: string;
-  result: Array<{ desc: string; score: number }>;
-}

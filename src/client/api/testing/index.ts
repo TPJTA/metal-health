@@ -23,10 +23,21 @@ export const getTesting: ApiType<{ data: TestingType }, [string]> =
 
 export type TestingQustion = Pick<
   Testing,
-  'questions' | 'id' | 'result' | 'times' | 'name'
+  'questions' | 'id' | 'times' | 'name'
 >;
 
 export const getTestingQustion: ApiType<{ data: TestingQustion }, [string]> =
   (axios) => (id) => {
     return axios.get('/testing/question', { params: { id } });
   };
+
+export const getTestRes: ApiType<
+  {
+    data: { resultStr: string; result: string };
+  },
+  [id: string, score: number]
+> = (axios) => (id, score) => {
+  return axios.get('/testing/result', {
+    params: { id, score },
+  });
+};

@@ -1,5 +1,5 @@
 import { ListDTO } from 'src/server/libs/publicDTO';
-import { IsInt, IsOptional } from 'class-validator';
+import { IsInt, IsOptional, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class GetTestingDTO {
@@ -13,4 +13,10 @@ export class GetTestingListDTO extends ListDTO {
   @Type(() => Number)
   @IsInt()
   type?: number;
+}
+
+export class GetTestingResultDTO extends GetTestingDTO {
+  @Type(() => Number)
+  @Min(0)
+  score: number;
 }
