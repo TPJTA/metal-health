@@ -1,13 +1,14 @@
 import Image from 'next/image';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import styles from './index.module.scss';
 import LogoImage from 'assets/images/logo.png';
-import { Menu, Button } from 'antd';
+import { Menu, Button, Drawer } from 'antd';
 import {
   HomeOutlined,
   ReadOutlined,
   CommentOutlined,
   EditOutlined,
+  MenuOutlined,
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -37,9 +38,17 @@ const routers = [
 
 function Header() {
   const router = useRouter();
+  const [menuVisible, setMenuVisible] = useState(false);
   const curRouter = useMemo(() => {
     return router.pathname;
   }, [router]);
+
+  const showMenu = () => {
+    setMenuVisible(true);
+  };
+  const hiddenMenu = () => {
+    setMenuVisible(false);
+  };
   return (
     <div className={styles['header']}>
       <div className={styles['header-content']}>
@@ -61,10 +70,34 @@ function Header() {
             </Menu.Item>
           ))}
         </Menu>
-        <Button type="link">
+        <Button type="link" className={styles['admin-button']}>
           <Link href="/admin/login">咨询师入口</Link>
         </Button>
+
+        <MenuOutlined onClick={showMenu} className={styles['menu-button']} />
       </div>
+      <Drawer
+        className={styles['menu-drawer']}
+        placement="right"
+        onClose={hiddenMenu}
+        visible={menuVisible}
+      >
+        <div className={styles['header-menu-logo']}>
+          <Image src={LogoImage} alt="" layout="responsive" />
+        </div>
+        <Menu mode="vertical" selectedKeys={[curRouter]}>
+          {routers.map((i) => (
+            <Menu.Item
+              key={i.path}
+              className={styles['nav-item']}
+              icon={i.icon}
+              onClick={hiddenMenu}
+            >
+              <Link href={i.path}>{i.name}</Link>
+            </Menu.Item>
+          ))}
+        </Menu>
+      </Drawer>
     </div>
   );
 }

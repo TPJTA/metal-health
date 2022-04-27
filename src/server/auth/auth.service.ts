@@ -6,6 +6,7 @@ export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
   async login(username, passwoard) {
+    // BaiLan
     if (username === 'aaa' && passwoard === 'aaa') {
       const payload = { username };
       return {

@@ -23,3 +23,17 @@ export class AddArticleDTO {
   @IsString()
   readonly content: string;
 }
+
+export class UpdateArticleDTO {
+  @Type(() => Number)
+  @IsInt()
+  readonly id: number;
+
+  @IsOptional()
+  @IsString()
+  readonly title: string;
+
+  @IsOptional()
+  @IsString()
+  readonly content: string;
+}

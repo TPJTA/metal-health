@@ -1,0 +1,19 @@
+.login {
+  padding-top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('~@/assets/images/login/bg.png');
+  background-size: cover;
+}
+
+.login-logo {
+  margin-bottom: 60px;
+  width: 10%;
+}
+
+.login-form {
+  width: 20%;
+}

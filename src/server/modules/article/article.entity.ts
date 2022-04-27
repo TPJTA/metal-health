@@ -12,4 +12,7 @@ export class Article {
 
   @Column({ type: 'varchar', comment: '图片地址' })
   cover: string;
+
+  @Column({ type: 'int', default: 0, comment: '查看次数' })
+  times: number;
 }
