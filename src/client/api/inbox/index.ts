@@ -1,5 +1,6 @@
+import { Email } from '@/libs/types';
 import type { ApiType } from '../root';
-
+export type { Email };
 export const sentInbox: ApiType<
   { data: 'ok' },
   [email: string, content: string]
@@ -8,10 +9,12 @@ export const sentInbox: ApiType<
 };
 
 export const getEmailList: ApiType<
-  { data: 'ok' },
+  { data: Email[]; count: number },
   [isAns: '0' | '1', page?: number, size?: number]
 > = (axios) => (isAns, page, size) => {
-  return axios.post('/inbox/list', { isAns, page, size });
+  return axios.get('/inbox/list', {
+    params: { isAns, page, size },
+  });
 };
 
 export const sentEmail: ApiType<{ data: 'ok' }, [id: number, ans: string]> =

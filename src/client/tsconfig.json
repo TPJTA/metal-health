@@ -15,6 +15,7 @@
         "./assets/*"
       ]
     },
+    "suppressImplicitAnyIndexErrors": true,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,

@@ -1,0 +1,25 @@
+.analyse-charts-box {
+  display: flex;
+  width: 100%;
+}
+
+.analyse-charts-words {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 25%;
+
+  .analyse-charts-title {
+    font-size: 16px;
+    color: #888;
+  }
+
+  .analyse-charts-num {
+    font-size: 32px;
+    color: #222;
+  }
+}
+
+.analyse-charts {
+  flex-grow: 1;
+}

@@ -1,0 +1,77 @@
+.analyse-page {
+  width: 100%;
+}
+.analyse-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.analyse-chart {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.analyse-chart-item {
+  margin-top: 30px;
+  padding: 30px;
+  width: 48% !important;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.visite-analyse {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .visite-analyse-chart {
+    margin-top: 20px;
+    padding-top: 50px;
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+  }
+  
+}
+
+.testing-analyse {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .testing-tabs {
+    margin-top: 10px;
+    padding-top: 35px;
+    width: 100%;
+    height: 720px;
+    background: #fff;
+    border-radius: 10px;
+  }
+  .testing-tab-pan {
+    padding-top: 20px;
+  }
+
+  .testing-select {
+    position: absolute;
+    top: 120px;
+    left: 25px;
+    z-index: 10;
+  }
+
+  :global(.testing-tooltip) {
+    max-width: 700px;
+
+    span {
+      white-space: normal !important;
+    }
+  }
+}
+
+.back-button {
+  position: absolute;
+  left: 25px;
+  top: 35px;
+  font-size: 16px;
+}

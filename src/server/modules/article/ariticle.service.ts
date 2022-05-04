@@ -2,17 +2,17 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Article } from './article.entity';
-import { join } from 'path';
-import { readFileSync } from 'fs';
+import { FileService } from '../file/file.service';
 import { Like } from 'typeorm';
-import * as fs from 'fs/promises';
 import * as path from 'path';
-import { getHexName } from '../../libs/tool';
 
 @Injectable()
 export class AriticleService {
   imgPath: string;
-  constructor(@InjectRepository(Article) private article: Repository<Article>) {
+  constructor(
+    @InjectRepository(Article) private article: Repository<Article>,
+    private fileService: FileService,
+  ) {
     this.imgPath = path.join(process.cwd(), 'src/server/public/img');
   }
 
@@ -29,6 +29,9 @@ export class AriticleService {
     const ariticleData = await this.article.findOne({
       where: { id },
     });
+    if (!ariticleData) {
+      throw new HttpException('no found', 400);
+    }
     const { times, ...data } = ariticleData;
     ariticleData.times = times + 1;
     this.article.save(ariticleData);
@@ -40,15 +43,11 @@ export class AriticleService {
     content: string,
     cover: Express.Multer.File,
   ) {
-    const saveFileName = getHexName(cover);
     const ariticle = new Article();
     ariticle.title = title;
     ariticle.content = content;
-    ariticle.cover = path.join('/img', saveFileName).replace(/\\/g, '/');
-    await Promise.all([
-      this.article.save(ariticle),
-      fs.writeFile(path.join(this.imgPath, saveFileName), cover.buffer),
-    ]);
+    ariticle.cover = await this.fileService.saveFile(cover);
+    await this.article.save(ariticle);
     return { data: ariticle };
   }
 
@@ -76,12 +75,7 @@ export class AriticleService {
     for (const i in updateParam) {
       if (updateParam[i]) {
         if (i === 'cover') {
-          const saveFileName = getHexName(updateParam[i]);
-          ariticle.cover = path.join('/img', saveFileName).replace(/\\/g, '/');
-          await fs.writeFile(
-            path.join(this.imgPath, saveFileName),
-            updateParam[i].buffer,
-          );
+          ariticle.cover = await this.fileService.saveFile(updateParam[i]);
         } else {
           ariticle[i] = updateParam[i];
         }

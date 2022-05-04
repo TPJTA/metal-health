@@ -1,13 +1,24 @@
 import React from 'react';
 import styles from '@/styles/login.module.scss';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import LogoImage from 'assets/images/logo.png';
 import Image from 'next/image';
+import useApi from '@/api/hook';
+import { useRouter } from 'next/router';
 
 function Login() {
-  const login = (val: any) => {
-    console.log(val);
+  const { login } = useApi('login');
+  const router = useRouter();
+
+  const onLogin = (val: any) => {
+    login(val)
+      .then(() => {
+        router.push('/admin/info');
+      })
+      .catch(() => {
+        message.error('用户名或密码错误');
+      });
   };
 
   return (
@@ -18,8 +29,11 @@ function Login() {
       <Form
         name="login"
         className={styles['login-form']}
-        initialValues={{ remember: true }}
-        onFinish={login}
+        initialValues={{
+          username: 'admin',
+          password: 'password',
+        }}
+        onFinish={onLogin}
       >
         <Form.Item
           name="username"

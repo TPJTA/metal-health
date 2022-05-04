@@ -5,9 +5,9 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
-  async login(username, passwoard) {
+  async login(username, password) {
     // BaiLan
-    if (username === 'aaa' && passwoard === 'aaa') {
+    if (username === 'admin' && password === 'password') {
       const payload = { username };
       return {
         access_token: this.jwtService.sign(payload),

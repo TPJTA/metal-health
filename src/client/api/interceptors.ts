@@ -31,6 +31,10 @@ export const initResponseInterceptors = (
     },
     function (error) {
       if (error.response) {
+        if (error.response.status === 401) {
+          Cookies.remove('Access_Token');
+          router.replace('/admin/login');
+        }
         return Promise.reject(error.response.data);
       } else {
         return Promise.reject(error);

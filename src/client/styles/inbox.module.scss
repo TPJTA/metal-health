@@ -23,25 +23,17 @@
   padding: 30px;
 
 
-  :global(.ant-form-item-has-error) {
-    :global(.ql-container),:global(.ql-toolbar) {
-      border-color: #ff4d4f;
-    }
-  }
+  @extend %error-form;
 }
 
 .form-quill {
 
   :global(.ql-container) {
     height: 300px;
-    transition: all 0.3s;
 
     @include mobile {
       height: 250px;
     }
   }
 
-  :global(.ql-toolbar) {
-    transition: all 0.3s;
-  }
 }

@@ -26,3 +26,16 @@
     @content;
   }
 }
+
+%error-form {
+  :global(.ql-toolbar),:global(.ql-container),:global(.ant-upload-select-picture-card) {
+    transition: all 0.3s;
+  }
+
+
+  :global(.ant-form-item-has-error) {
+    :global(.ql-container),:global(.ql-toolbar),:global(.ant-upload-select-picture-card) {
+      border-color: #ff4d4f;
+    }
+  }
+}

@@ -7,6 +7,8 @@ export class AuthController {
 
   @Post('/api/login')
   login(@Body() body) {
-    return this.authService.login(body.username, body.passwoard);
+    console.log(body.username, body.password);
+
+    return this.authService.login(body.username, body.password);
   }
 }

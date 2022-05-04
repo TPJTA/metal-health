@@ -77,6 +77,10 @@
 
 .menu-button {
   font-size: 22px;
+  display: none;
+  @include mobile {
+    display: block;
+  }
 }
 
 .header-search {

@@ -21,7 +21,9 @@ export class Testing {
   @Column({ type: 'int', comment: '测试类型' })
   type: number; // 健康, 性格, 社交, 能力
 
-  @OneToMany(() => Question, (question) => question.testing)
+  @OneToMany(() => Question, (question) => question.testing, {
+    cascade: true,
+  })
   questions: Question[];
 
   @Column({ type: 'varchar', comment: '测试图片' })
@@ -30,7 +32,9 @@ export class Testing {
   @Column({ type: 'text', comment: '结果参考', nullable: true })
   resultStr?: string;
 
-  @OneToMany(() => Result, (result) => result.testing)
+  @OneToMany(() => Result, (result) => result.testing, {
+    cascade: true,
+  })
   results: Result[];
 
   @Column({ type: 'int', comment: '测试次数', default: 0 })
@@ -55,6 +59,13 @@ export class Question {
   answers: answerType[];
 }
 
+type answerType = {
+  /** 选项题目 */
+  title: string;
+  /** score[i]<= curScore < score[i+1] 则为当前答案, 按score升序排列 */
+  score: number;
+};
+
 @Entity()
 export class Result {
   @PrimaryGeneratedColumn()
@@ -72,9 +83,3 @@ export class Result {
   @Column({ type: 'int', default: 0, comment: '测试结果次数' })
   times: number;
 }
-
-type answerType = {
-  title: string;
-  /** score[i]<= curScore < score[i+1] 则为当前答案, 按score升序排列 */
-  score: number;
-};

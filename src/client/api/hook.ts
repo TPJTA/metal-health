@@ -13,7 +13,7 @@ type apiName = keyof typeof rootApi;
 
 export default function useApi<T extends apiName[]>(
   ...apiNames: [...T]
-): Record<T[number], ReturnType<typeof rootApi[T[number]]>> {
+): { [key in T[number]]: ReturnType<typeof rootApi[key]> } {
   const router = useRouter();
 
   // 初始化axios

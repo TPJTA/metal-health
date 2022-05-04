@@ -5,6 +5,7 @@ import {
   Body,
   Get,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   SaveInboxQuestionDTO,
@@ -12,12 +13,14 @@ import {
   GetEmailDTO,
 } from './dto/inbox.dto';
 import { InboxService } from './inbox.service';
+import { AnalyseTracking } from '../analyse/analyseTracking.interceptor';
 
 @Controller('/api/inbox')
 export class InboxController {
   constructor(private readonly inboxService: InboxService) {}
 
   @Post()
+  @UseInterceptors(AnalyseTracking('question'))
   saveInboxQuestion(
     @Body(new ValidationPipe()) { email, content }: SaveInboxQuestionDTO,
   ) {

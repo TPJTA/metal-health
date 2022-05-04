@@ -1,10 +1,24 @@
-import { Controller, Get, Post, ValidationPipe, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  ValidationPipe,
+  Query,
+  Body,
+  Delete,
+  Put,
+  UseInterceptors,
+} from '@nestjs/common';
 import {
   GetTestingListDTO,
   GetTestingDTO,
   GetTestingResultDTO,
+  AddTestingDTO,
+  AddQuestionDTO,
+  UpdateResultDTO,
 } from './dto/testing.dto';
 import { TestingService } from './testing.service';
+import { AnalyseTracking } from '../analyse/analyseTracking.interceptor';
 
 @Controller('/api/testing')
 export class TestingController {
@@ -19,6 +33,7 @@ export class TestingController {
   }
 
   @Get('/question')
+  @UseInterceptors(AnalyseTracking('testing'))
   getTestingQuestion(
     @Query(new ValidationPipe({ transform: true }))
     { id }: GetTestingDTO,
@@ -37,18 +52,47 @@ export class TestingController {
   @Get('/list')
   async getTestingList(
     @Query(new ValidationPipe({ transform: true }))
-    { page = 1, size = 10, type }: GetTestingListDTO,
+    { page, size, type }: GetTestingListDTO,
   ) {
     return this.testingService.getTestingList(page, size, type);
   }
 
-  @Post('/add')
-  async addTesting() {
-    return 'success';
+  @Post()
+  async addTesting(
+    @Body(new ValidationPipe({ transform: true })) testing: AddTestingDTO,
+  ) {
+    return this.testingService.addTesting(testing);
   }
 
-  @Get('/test')
-  async test() {
-    return this.testingService.getTestingRes(1, 0);
+  @Delete()
+  async removeTesting(
+    @Body(new ValidationPipe({ transform: true }))
+    { id }: GetTestingDTO,
+  ) {
+    return this.testingService.removeTesting(id);
+  }
+
+  @Post('/question')
+  async addQuestion(
+    @Body(new ValidationPipe({ transform: true }))
+    param: AddQuestionDTO,
+  ) {
+    return this.testingService.addQuestion(param);
+  }
+
+  @Delete('/question')
+  async removeQuestion(
+    @Body(new ValidationPipe({ transform: true }))
+    { id }: GetTestingDTO,
+  ) {
+    return this.testingService.removeQuestion(id);
+  }
+
+  @Put('/result')
+  async updateResult(
+    @Body(new ValidationPipe({ transform: true }))
+    param: UpdateResultDTO,
+  ) {
+    return this.testingService.updateResult(param);
   }
 }

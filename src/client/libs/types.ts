@@ -28,3 +28,20 @@ type answerType = {
   /** score[i]<= curScore < score[i+1] 则为当前答案, 按score升序排列 */
   score: number;
 };
+
+export interface Email {
+  id: number;
+  email: string;
+  content: string;
+  ans?: string;
+}
+
+type AnalyseItemType = {
+  num: number;
+  rate: number;
+};
+export interface Analyse {
+  visite: AnalyseItemType;
+  testing: AnalyseItemType;
+  question: AnalyseItemType;
+}
