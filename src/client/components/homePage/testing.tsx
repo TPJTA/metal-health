@@ -1,4 +1,4 @@
-import { Card, Tag } from 'antd';
+import { Card } from 'antd';
 import React, { useEffect, useState } from 'react';
 import styles from './testing.module.scss';
 import Image from 'next/image';
@@ -6,10 +6,12 @@ import type { TestingListType } from '@/api/root';
 import useApi from '@/api/hook';
 import { htmlToText } from 'html-to-text';
 import TestingTag from '../testingTag';
+import { useRouter } from 'next/router';
 
 function Testing() {
   const [testingList, settestingList] = useState<TestingListType>([]);
   const { getTestingList } = useApi('getTestingList');
+  const router = useRouter();
 
   useEffect(() => {
     getTestingList({ page: 1, size: 9 }).then(({ data }) => {
@@ -24,6 +26,7 @@ function Testing() {
       <div className={styles['testing-box']}>
         {testingList.map((i, index) => (
           <Card
+            onClick={() => router.push(`/testing/${i.id}`)}
             className={styles['testing-item']}
             key={index}
             hoverable

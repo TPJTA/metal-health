@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Upload, UploadProps } from 'antd';
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
-import styles from './index.module.scss';
 function getBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

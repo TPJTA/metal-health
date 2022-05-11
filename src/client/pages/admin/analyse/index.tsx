@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useReducer, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
 import Analyseharts from '@/components/analyse/analyseCharts';
 import AnalyseItem from '@/components/analyse/analyseItem';

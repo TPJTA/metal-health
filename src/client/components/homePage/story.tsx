@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './story.module.scss';
-import { Card, Avatar } from 'antd';
+import { Card } from 'antd';
 import Heart from 'assets/icons/heart.svg';
 import { useRouter } from 'next/router';
 import { HTMLToText } from '@/libs/tool';

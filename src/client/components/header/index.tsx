@@ -51,7 +51,7 @@ function Header() {
   };
 
   const menuItems = useMemo(() => {
-    return routers.map((i, index) => ({
+    return routers.map((i) => ({
       label: i.name,
       key: i.path,
       icon: i.icon,

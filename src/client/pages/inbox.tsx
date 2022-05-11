@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styles from '@/styles/inbox.module.scss';
-import { Form, Input, Button, Modal, FormInstance } from 'antd';
+import { Form, Input, Button, Modal } from 'antd';
 import dynamic from 'next/dynamic';
 import { HTMLToText } from '@/libs/tool';
 import useApi from '@/api/hook';

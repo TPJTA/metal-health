@@ -2457,10 +2457,10 @@ ansi-styles@^5.0.0:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-5.2.0.tgz#07449690ad45777d1924ac2abb2fc8895dba836b"
   integrity sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==
 
-antd@^4.19.2:
-  version "4.20.3"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-4.20.3.tgz#21f77332d201ea9f1d76685ca9534b4796791c81"
-  integrity sha512-liZB/OguxPPNnssiR8UH5gjAV3LetsnA8K0G+VBVJkCZsU5QmCDL05d059Nu6iRD7FVg0drSONZQwvWD4pO4nw==
+antd@4.20.0:
+  version "4.20.0"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-4.20.0.tgz#5f5fa4fccb90dd3e091c8d6e9d503114d98d862f"
+  integrity sha512-Msowfvabsn/yJIo3qYU0vMqGb31OUylMeFRDilosBViG2AS8R2VB2IX53kbw4kFV3vr7fr2HXcuQkf/FMLU+Dg==
   dependencies:
     "@ant-design/colors" "^6.0.0"
     "@ant-design/icons" "^4.7.0"
@@ -2491,7 +2491,7 @@ antd@^4.19.2:
     rc-progress "~3.2.1"
     rc-rate "~2.9.0"
     rc-resize-observer "^1.2.0"
-    rc-segmented "~2.1.0 "
+    rc-segmented "~2.0.0"
     rc-select "~14.1.1"
     rc-slider "~10.0.0"
     rc-steps "~4.1.0"
@@ -7564,10 +7564,10 @@ rc-resize-observer@^1.0.0, rc-resize-observer@^1.1.0, rc-resize-observer@^1.2.0:
     rc-util "^5.15.0"
     resize-observer-polyfill "^1.5.1"
 
-"rc-segmented@~2.1.0 ":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/rc-segmented/-/rc-segmented-2.1.0.tgz#0e0afe646c1a0e44a0e18785f518c42633ec8efc"
-  integrity sha512-hUlonro+pYoZcwrH6Vm56B2ftLfQh046hrwif/VwLIw1j3zGt52p5mREBwmeVzXnSwgnagpOpfafspzs1asjGw==
+rc-segmented@~2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/rc-segmented/-/rc-segmented-2.0.0.tgz#209b55bec85c1a8b1821c30e62d3ebef4da04b52"
+  integrity sha512-YsdS+aP7E6ZMEY35WSlewJIsrjPbBSP4X/7RvZtzLExKDZwFvXdCPCbWFVDNks4jOYY9TUPYt7qlVifEu9/zXA==
   dependencies:
     "@babel/runtime" "^7.11.1"
     classnames "^2.2.1"

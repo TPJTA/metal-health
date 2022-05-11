@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import ReactECharts, { EChartsReactProps } from 'echarts-for-react';
+import ReactECharts from 'echarts-for-react';
 import type { EChartsOption, ECharts } from 'echarts';
 import useApi from '@/api/hook';
 import type {
@@ -7,7 +7,6 @@ import type {
   AnalyseTesting,
   AnalyseTestingResult,
 } from '@/api/analyse';
-import type { TestingListType } from '@/api/testing';
 import styles from '@/styles/analyse.module.scss';
 import { LeftOutlined } from '@ant-design/icons';
 import { Button, Tabs, Select } from 'antd';

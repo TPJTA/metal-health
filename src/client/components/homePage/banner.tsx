@@ -3,7 +3,6 @@ import styles from './banner.module.scss';
 import { Carousel } from 'antd';
 import Banner1Image from 'assets/images/banner/banner1.jpeg';
 import Banner2Image from 'assets/images/banner/banner2.jpeg';
-import Image from 'next/image';
 
 const banners = [
   {
