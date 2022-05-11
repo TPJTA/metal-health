@@ -1,4 +1,4 @@
-import { ListDTO } from 'src/server/libs/publicDTO';
+import { ListDTO } from '../../../libs/publicDTO';
 import {
   IsArray,
   IsIn,
@@ -57,6 +57,10 @@ class AddQuestion {
 }
 
 class AddResult {
+  @IsOptional()
+  @IsInt()
+  id?: number;
+
   @IsString()
   desc: string;
 
@@ -96,6 +100,39 @@ export class AddTestingDTO {
   results: AddResult[];
 }
 
+export class UpdateTestingtDTO {
+  @Type(() => Number)
+  @IsInt()
+  readonly id: number;
+
+  @IsOptional()
+  @IsString()
+  desc?: string;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsIn([0, 1, 2, 3])
+  type?: 0 | 1 | 2 | 3;
+
+  @IsOptional()
+  @IsUrl({
+    require_protocol: false,
+    require_host: false,
+    allow_protocol_relative_urls: true,
+  })
+  cover?: string;
+
+  @IsOptional()
+  @IsString()
+  resultStr?: string;
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested()
+  @Type(() => AddResult)
+  results?: AddResult[];
+}
+
 export class AddQuestionDTO {
   @Type(() => Number)
   @IsInt()
@@ -105,15 +142,4 @@ export class AddQuestionDTO {
   @ValidateNested()
   @Type(() => AddQuestion)
   question: AddQuestion;
-}
-
-export class UpdateResultDTO {
-  @Type(() => Number)
-  @IsInt()
-  readonly id: number;
-
-  @IsArray()
-  @ValidateNested()
-  @Type(() => AddResult)
-  results: AddResult[];
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, MenuProps } from 'antd';
 import Link from 'next/link';
 import styles from './admin.module.scss';
 import Image from 'next/image';
@@ -12,6 +12,7 @@ import {
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import Head from 'next/head';
 
 const { Header, Sider, Content } = Layout;
 const routers = [
@@ -55,19 +56,37 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = function ({
       router: routers[findIndex],
     };
   }, [router]);
+
+  const menuItems = useMemo(() => {
+    return routers.map((i, index) => ({
+      label: i.name,
+      key: index.toString(),
+      icon: i.icon,
+      path: i.path,
+    }));
+  }, []);
+
+  const menuClick: MenuProps['onClick'] = (item) => {
+    router.push(routers[item.key].path);
+  };
+
   return (
     <Layout className={styles['admin-layout']}>
+      <Head>
+        <title>管理页面</title>
+        <link rel="icon" href="/favicon.png" />
+      </Head>
       <Sider trigger={null} className={styles['admin-sider']}>
         <div className={styles['admin-logo']}>
           <Image src={LogoImage} alt="" layout="responsive" />
         </div>
-        <Menu theme="dark" mode="inline" selectedKeys={[curRouter.index]}>
-          {routers.map((i, index) => (
-            <Menu.Item key={index.toString()} icon={i.icon}>
-              <Link href={i.path}>{i.name}</Link>
-            </Menu.Item>
-          ))}
-        </Menu>
+        <Menu
+          onClick={menuClick}
+          theme="dark"
+          mode="inline"
+          selectedKeys={[curRouter.index]}
+          items={menuItems}
+        />
       </Sider>
       <Layout>
         <Header className={styles['admin-header']}>

@@ -15,7 +15,7 @@ import {
   GetTestingResultDTO,
   AddTestingDTO,
   AddQuestionDTO,
-  UpdateResultDTO,
+  UpdateTestingtDTO,
 } from './dto/testing.dto';
 import { TestingService } from './testing.service';
 import { AnalyseTracking } from '../analyse/analyseTracking.interceptor';
@@ -57,6 +57,14 @@ export class TestingController {
     return this.testingService.getTestingList(page, size, type);
   }
 
+  @Get('/allList')
+  async getTestingAllList(
+    @Query(new ValidationPipe({ transform: true }))
+    { page, size, type }: GetTestingListDTO,
+  ) {
+    return this.testingService.getTestingAllList(page, size, type);
+  }
+
   @Post()
   async addTesting(
     @Body(new ValidationPipe({ transform: true })) testing: AddTestingDTO,
@@ -70,6 +78,14 @@ export class TestingController {
     { id }: GetTestingDTO,
   ) {
     return this.testingService.removeTesting(id);
+  }
+
+  @Put()
+  async updateTesting(
+    @Body(new ValidationPipe({ transform: true }))
+    param: UpdateTestingtDTO,
+  ) {
+    return this.testingService.updateTesting(param);
   }
 
   @Post('/question')
@@ -86,13 +102,5 @@ export class TestingController {
     { id }: GetTestingDTO,
   ) {
     return this.testingService.removeQuestion(id);
-  }
-
-  @Put('/result')
-  async updateResult(
-    @Body(new ValidationPipe({ transform: true }))
-    param: UpdateResultDTO,
-  ) {
-    return this.testingService.updateResult(param);
   }
 }

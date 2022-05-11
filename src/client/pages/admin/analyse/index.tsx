@@ -158,10 +158,7 @@ function Analyse() {
 
   return (
     <div className={styles['analyse-page']}>
-      <Script
-        strategy="beforeInteractive"
-        src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"
-      />
+      <Script strategy="beforeInteractive" src="/socket.io.min.js" />
       <div className={styles['analyse-header']}>
         <Link href="/admin/analyse/visite" passHref>
           <AnalyseItem

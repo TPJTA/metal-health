@@ -17,13 +17,9 @@ export const getAriticle: ApiType<{ data: Ariticle }, [string]> =
 
 export const addAriticle: ApiType<
   { data: Ariticle },
-  [title: string, content: string, cover: File]
+  [title: string, content: string, cover: string]
 > = (axios) => (title, content, cover) => {
-  const formDate = new FormData();
-  formDate.append('title', title);
-  formDate.append('content', content);
-  formDate.append('cover', cover);
-  return axios.post('/aritice', formDate);
+  return axios.post('/aritice', { title, content, cover });
 };
 
 export const updateAriticle: ApiType<
@@ -37,12 +33,7 @@ export const updateAriticle: ApiType<
     },
   ]
 > = (axios) => (id, updateParam) => {
-  const formDate = new FormData();
-  formDate.append('id', id);
-  for (const i in updateParam) {
-    formDate.append(i, (<any>updateParam)[i]);
-  }
-  return axios.put('/aritice', formDate);
+  return axios.put('/aritice', { id, ...updateParam });
 };
 
 export const removeeAriticle: ApiType<{ data: Ariticle }, [id: string]> =

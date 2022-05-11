@@ -38,7 +38,11 @@ function InfoItem() {
       {story ? (
         <div className={styles['info-item-cotain']}>
           <div className={styles['info-item-cover']}>
-            <Image src={story.cover} alt="" layout="fill" />
+            <Image
+              src={process.env.NEXT_PUBLIC_ORIGIN + story.cover}
+              alt=""
+              layout="fill"
+            />
           </div>
 
           <div className={styles['info-item-box']}>

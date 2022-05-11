@@ -38,15 +38,11 @@ export class AriticleService {
     return { data };
   }
 
-  async addAriticle(
-    title: string,
-    content: string,
-    cover: Express.Multer.File,
-  ) {
+  async addAriticle(title: string, content: string, cover: string) {
     const ariticle = new Article();
     ariticle.title = title;
     ariticle.content = content;
-    ariticle.cover = await this.fileService.saveFile(cover);
+    ariticle.cover = cover;
     await this.article.save(ariticle);
     return { data: ariticle };
   }
@@ -65,7 +61,7 @@ export class AriticleService {
     updateParam: {
       title?: string;
       content?: string;
-      cover?: Express.Multer.File;
+      cover?: string;
     },
   ) {
     const ariticle = await this.article.findOneBy({ id });
@@ -74,11 +70,7 @@ export class AriticleService {
     }
     for (const i in updateParam) {
       if (updateParam[i]) {
-        if (i === 'cover') {
-          ariticle.cover = await this.fileService.saveFile(updateParam[i]);
-        } else {
-          ariticle[i] = updateParam[i];
-        }
+        ariticle[i] = updateParam[i];
       }
     }
     await this.article.save(ariticle);

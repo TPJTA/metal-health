@@ -32,7 +32,14 @@ function Story() {
             onClick={() => router.push(`/info/${i.id}`)}
           >
             <Card.Meta
-              avatar={<Image src={i.cover} alt="" width="64px" height="64px" />}
+              avatar={
+                <Image
+                  src={process.env.NEXT_PUBLIC_ORIGIN + i.cover}
+                  alt=""
+                  width="64px"
+                  height="64px"
+                />
+              }
               title={i.title}
               description={HTMLToText(i.content)}
             />

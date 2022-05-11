@@ -82,7 +82,11 @@ const Info: NextPage = function () {
                 key={item.id}
                 extra={
                   <div className={styles['info-image']}>
-                    <Image src={item.cover} alt="" layout="fill" />
+                    <Image
+                      src={process.env.NEXT_PUBLIC_ORIGIN + item.cover}
+                      alt=""
+                      layout="fill"
+                    />
                   </div>
                 }
                 onClick={() => router.push(`/info/${item.id}`)}

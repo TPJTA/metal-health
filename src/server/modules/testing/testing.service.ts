@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import type {
   AddTestingDTO,
   AddQuestionDTO,
-  UpdateResultDTO,
+  UpdateTestingtDTO,
 } from './dto/testing.dto';
 
 @Injectable()
@@ -41,6 +41,17 @@ export class TestingService {
       skip: page !== undefined ? (page - 1) * size : null,
       take: size,
       where: type !== undefined ? { type } : null,
+    });
+    return { data, count };
+  }
+
+  async getTestingAllList(page?: number, size?: number, type?: number) {
+    const [data, count] = await this.testing.findAndCount({
+      skip: page !== undefined ? (page - 1) * size : null,
+      take: size,
+      where: type !== undefined ? { type } : null,
+      relations: ['questions', 'results'],
+      order: { results: { score: 'ASC' } },
     });
     return { data, count };
   }
@@ -140,7 +151,7 @@ export class TestingService {
     return { data: 'ok' };
   }
 
-  async updateResult({ id, results }: UpdateResultDTO) {
+  async updateTesting({ id, results, ...param }: UpdateTestingtDTO) {
     const curTesing = await this.testing.findOne({
       where: { id },
       relations: ['results'],
@@ -148,16 +159,24 @@ export class TestingService {
     if (!curTesing) {
       throw new HttpException('no found', 400);
     }
-    await this.result.remove(curTesing.results);
+    for (const i in param) {
+      if (curTesing[i] !== undefined) {
+        curTesing[i] = param[i];
+      }
+    }
+    await this.testing.save(curTesing);
+    await Promise.all(curTesing.results.map((i) => this.result.delete(i)));
     await Promise.all(
-      results.map(async (item) => {
-        const newResult = new Result();
-        newResult.testing = curTesing;
-        newResult.desc = item.desc;
-        newResult.score = item.score;
-        await this.result.save(newResult);
+      results.map(async (i) => {
+        const result = new Result();
+        result.testing = curTesing;
+        result.desc = i.desc;
+        result.score = i.score;
+
+        await this.result.save(result);
       }),
     );
+
     return { data: 'ok' };
   }
 }

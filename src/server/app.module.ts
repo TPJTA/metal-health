@@ -10,6 +10,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { FileModule } from './modules/file/file.module';
 import { AnalyseModule } from './modules/analyse/analyse.module';
 import * as Monitor from 'express-status-monitor';
+import { join } from 'path';
 
 const configModule = ConfigModule.forRoot({
   isGlobal: true,
@@ -17,9 +18,11 @@ const configModule = ConfigModule.forRoot({
 @Module({
   imports: [
     configModule,
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({
+      keepConnectionAlive: true,
+      entities: [join(process.cwd(), 'dist/**/*.entity.js')],
+    }),
     MailerModule.forRoot({
-      // transport: 'smtps://tpjt_email@163.com:YKSEUHJHQZKUDUZN@smtp.163.com',
       transport: {
         host: process.env.EMAIL_HOST,
         port: 465,

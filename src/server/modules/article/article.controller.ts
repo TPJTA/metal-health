@@ -43,32 +43,24 @@ export class AriticleController {
 
   /**添加文章 */
   @Post()
-  @UseInterceptors(FileInterceptor('cover'))
   addArticle(
     @Body(new ValidationPipe())
-    { content, title }: AddArticleDTO,
-    @UploadedFile() cover: Express.Multer.File,
+    { content, title, cover }: AddArticleDTO,
   ) {
-    if (!cover) {
-      throw new HttpException('content must be a file', 400);
-    }
     return this.ariticleService.addAriticle(title, content, cover);
   }
 
   /**修改文章 */
   @Put()
-  @UseInterceptors(FileInterceptor('cover'))
   updateArticle(
     @Body(new ValidationPipe())
-    { content, title, id }: UpdateArticleDTO,
-    @UploadedFile() cover: Express.Multer.File,
+    { content, title, id, cover }: UpdateArticleDTO,
   ) {
     return this.ariticleService.updateAriticle(id, { content, title, cover });
   }
 
   /**删除文章 */
   @Delete()
-  @UseInterceptors(FileInterceptor('cover'))
   removeArticle(
     @Body(new ValidationPipe())
     { id }: GetArticleDTO,

@@ -15,7 +15,8 @@ export class FileService {
     fsHash.update(file.buffer);
     const md5 = fsHash.digest('hex').slice(0, 6);
     const fileParsePath = path.parse(file.originalname);
-    const hexFileName = fileParsePath.name + '.' + md5 + fileParsePath.ext;
+    const hexFileName =
+      fileParsePath.name.replace(/ /g, '') + '.' + md5 + fileParsePath.ext;
     return hexFileName;
   }
 

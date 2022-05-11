@@ -50,6 +50,7 @@ const UploadImage: React.FC<
 
   return (
     <Upload
+      accept="image/*"
       action="/file/upload"
       method="POST"
       listType="picture-card"

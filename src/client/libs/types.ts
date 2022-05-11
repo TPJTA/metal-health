@@ -25,7 +25,6 @@ interface Question {
 
 type answerType = {
   title: string;
-  /** score[i]<= curScore < score[i+1] 则为当前答案, 按score升序排列 */
   score: number;
 };
 

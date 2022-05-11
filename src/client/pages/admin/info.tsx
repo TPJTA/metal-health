@@ -10,6 +10,9 @@ import {
   Form,
   Modal,
   FormProps,
+  message,
+  Space,
+  Popconfirm,
 } from 'antd';
 import styles from '@/styles/adminInfo.module.scss';
 import dynamic from 'next/dynamic';
@@ -18,64 +21,76 @@ import UploadImage from '@/components/uploadImage';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 type AriticleTableList = Array<Ariticle & { key: number }>;
-type AriticleTableMap = Record<number, AriticleTableList>;
 
 function Info() {
-  const { getAriticleList } = useApi('getAriticleList');
-  const [infoList, setInfoList] = useState<AriticleTableMap>({});
+  const { getAriticleList, addAriticle, updateAriticle, removeeAriticle } =
+    useApi(
+      'getAriticleList',
+      'addAriticle',
+      'updateAriticle',
+      'removeeAriticle',
+    );
+  const [infoList, setInfoList] = useState<AriticleTableList>([]);
   const [curPage, setCurPage] = useState<number>(1);
   const [ariticleTotal, setAriticleTotal] = useState<number>(0);
   const [searchKey, setSearchKey] = useState('');
-  const [searchList, setSearchList] = useState<AriticleTableMap>({});
-  const [searchTotal, setSearchTotal] = useState<number>(0);
   const [isShowModal, setIsShowModal] = useState(false);
   const [form] = Form.useForm();
 
+  const getInfoList = () => {
+    getAriticleList({ page: curPage, size: 10, title: searchKey }).then(
+      (res) => {
+        setInfoList(res.data.map((i) => ({ ...i, key: i.id })));
+        setAriticleTotal(res.count);
+      },
+    );
+  };
+
   useEffect(() => {
     setCurPage(1);
-    setSearchList({});
+    getInfoList();
   }, [searchKey]);
 
   useEffect(() => {
-    if (searchKey && !searchList[curPage]) {
-      getAriticleList({ page: curPage, size: 10, title: searchKey }).then(
-        (res) => {
-          setSearchList({
-            ...searchList,
-            [curPage]: res.data.map((i) => ({ ...i, key: i.id })),
-          });
-          setSearchTotal(res.count);
-        },
-      );
-    } else if (!searchKey && !infoList[curPage]) {
-      getAriticleList({ page: curPage, size: 10, title: searchKey }).then(
-        (res) => {
-          setInfoList({
-            ...infoList,
-            [curPage]: res.data.map((i) => ({ ...i, key: i.id })),
-          });
-          setAriticleTotal(res.count);
-        },
-      );
-    }
-  }, [getAriticleList, curPage, infoList, searchKey, searchList]);
+    getInfoList();
+  }, [curPage]);
 
   const pageChange: PaginationProps['onChange'] = (page) => {
     setCurPage(page);
+    document.body.scrollIntoView({
+      behavior: 'smooth',
+    });
   };
 
   const closeModal = () => {
     setIsShowModal(false);
+  };
+
+  const showAddModal = () => {
+    setIsShowModal(true);
     form.resetFields();
   };
 
-  const showModal = () => {
-    setIsShowModal(true);
-  };
-
   const submit = () => {
-    form.validateFields().then((val) => {
-      console.log(val);
+    form.validateFields().then(() => {
+      const { id, title, content, cover } = form.getFieldsValue(true);
+      if (id !== undefined) {
+        updateAriticle(id, {
+          title,
+          content,
+          cover: cover[0]?.response?.data,
+        }).then(() => {
+          message.success('发送成功');
+          closeModal();
+          getInfoList();
+        });
+      } else {
+        addAriticle(title, content, cover[0].response.data).then(() => {
+          message.success('发送成功');
+          closeModal();
+          getInfoList();
+        });
+      }
     });
   };
 
@@ -90,8 +105,14 @@ function Info() {
       },
     ];
     form.setFieldsValue(clone);
-    console.log(clone);
-    showModal();
+    setIsShowModal(true);
+  };
+
+  const delteInfo = (id: number) => {
+    removeeAriticle(id as any).then(() => {
+      message.success('发送成功');
+      getInfoList();
+    });
   };
 
   const columns: TableProps<Ariticle>['columns'] = [
@@ -109,9 +130,21 @@ function Info() {
       title: '操作',
       key: 'action',
       render: (text, record) => (
-        <Button type="primary" onClick={() => updateInfo(record)}>
-          修改
-        </Button>
+        <Space>
+          <Button type="primary" onClick={() => updateInfo(record)}>
+            修改
+          </Button>
+          <Popconfirm
+            title="你确定要删除吗？"
+            onConfirm={() => delteInfo(record.id)}
+            okText="确定"
+            cancelText="取消"
+          >
+            <Button type="primary" danger>
+              删除
+            </Button>
+          </Popconfirm>
+        </Space>
       ),
     },
   ];
@@ -120,13 +153,14 @@ function Info() {
     <div className={styles['info']}>
       <div className={styles['info-header']}>
         <Input.Search
+          placeholder="请输入搜索关键字"
           className={styles['info-search']}
           onChange={(event) => setSearchKey(event.target.value)}
         />
         <Button
           className={styles['info-add-button']}
           type="primary"
-          onClick={showModal}
+          onClick={showAddModal}
         >
           添加
         </Button>
@@ -136,12 +170,13 @@ function Info() {
         bordered
         className={styles['info-table']}
         columns={columns}
-        dataSource={searchKey ? searchList[curPage] : infoList[curPage]}
+        dataSource={infoList}
         pagination={{
+          current: curPage,
           showSizeChanger: false,
           onChange: pageChange,
           pageSize: 10,
-          total: searchKey ? searchTotal : ariticleTotal,
+          total: ariticleTotal,
         }}
         expandable={{
           expandedRowRender: (record) => (
@@ -170,7 +205,6 @@ function Info() {
 
 const ModalForm: React.FC<FormProps> = (props) => {
   const normFile = (e: any) => {
-    console.log('Upload event:', e);
     if (Array.isArray(e)) {
       return e;
     }

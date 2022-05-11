@@ -1,6 +1,6 @@
 import { IsString, IsEmail, IsInt, IsIn } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ListDTO } from 'src/server/libs/publicDTO';
+import { ListDTO } from '../../../libs/publicDTO';
 
 export class SaveInboxQuestionDTO {
   @IsEmail()

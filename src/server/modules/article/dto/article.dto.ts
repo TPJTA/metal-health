@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
-import { IsInt, IsOptional, IsString } from 'class-validator';
-import { ListDTO } from 'src/server/libs/publicDTO';
+import { IsInt, IsOptional, IsString, IsUrl } from 'class-validator';
+import { ListDTO } from '../../../libs/publicDTO';
 
 /** 获取单一文章 */
 export class GetArticleDTO {
@@ -22,6 +22,13 @@ export class AddArticleDTO {
 
   @IsString()
   readonly content: string;
+
+  @IsUrl({
+    require_protocol: false,
+    require_host: false,
+    allow_protocol_relative_urls: true,
+  })
+  readonly cover: string;
 }
 
 export class UpdateArticleDTO {
@@ -36,4 +43,12 @@ export class UpdateArticleDTO {
   @IsOptional()
   @IsString()
   readonly content: string;
+
+  @IsOptional()
+  @IsUrl({
+    require_protocol: false,
+    require_host: false,
+    allow_protocol_relative_urls: true,
+  })
+  readonly cover: string;
 }

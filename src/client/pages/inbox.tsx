@@ -4,6 +4,7 @@ import { Form, Input, Button, Modal, FormInstance } from 'antd';
 import dynamic from 'next/dynamic';
 import { HTMLToText } from '@/libs/tool';
 import useApi from '@/api/hook';
+import Head from 'next/head';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -29,6 +30,10 @@ function Question() {
 
   return (
     <div className={styles['inbox']}>
+      <Head>
+        <title>匿名提问</title>
+        <link rel="icon" href="/favicon.png" />
+      </Head>
       <div className={styles['inbox-contain']}>
         <div className={styles['inbox-title']}>匿名提问</div>
         <Form

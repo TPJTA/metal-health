@@ -6,6 +6,7 @@ import LogoImage from 'assets/images/logo.png';
 import Image from 'next/image';
 import useApi from '@/api/hook';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 function Login() {
   const { login } = useApi('login');
@@ -23,6 +24,10 @@ function Login() {
 
   return (
     <div className={styles['login']}>
+      <Head>
+        <title>登录</title>
+        <link rel="icon" href="/favicon.png" />
+      </Head>
       <div className={styles['login-logo']}>
         <Image src={LogoImage} alt="" layout="responsive" />
       </div>

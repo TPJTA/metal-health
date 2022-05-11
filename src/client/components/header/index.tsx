@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useMemo, useState } from 'react';
 import styles from './index.module.scss';
 import LogoImage from 'assets/images/logo.png';
-import { Menu, Button, Drawer } from 'antd';
+import { Menu, Button, Drawer, MenuProps } from 'antd';
 import {
   HomeOutlined,
   ReadOutlined,
@@ -49,6 +49,19 @@ function Header() {
   const hiddenMenu = () => {
     setMenuVisible(false);
   };
+
+  const menuItems = useMemo(() => {
+    return routers.map((i, index) => ({
+      label: i.name,
+      key: i.path,
+      icon: i.icon,
+      path: i.path,
+    }));
+  }, []);
+
+  const menuClick: MenuProps['onClick'] = (item) => {
+    router.push(item.key);
+  };
   return (
     <div className={styles['header']}>
       <div className={styles['header-content']}>
@@ -59,17 +72,9 @@ function Header() {
           mode="horizontal"
           className={styles['nav']}
           selectedKeys={[curRouter]}
-        >
-          {routers.map((i) => (
-            <Menu.Item
-              key={i.path}
-              className={styles['nav-item']}
-              icon={i.icon}
-            >
-              <Link href={i.path}>{i.name}</Link>
-            </Menu.Item>
-          ))}
-        </Menu>
+          items={menuItems}
+          onClick={menuClick}
+        />
         <Button type="link" className={styles['admin-button']}>
           <Link href="/admin/login">咨询师入口</Link>
         </Button>
