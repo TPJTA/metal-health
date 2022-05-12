@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-console.log(process.env.NEXT_PUBLIC_ORIGIN);
 const nextConfig = {
   reactStrictMode: true,
   sassOptions: {

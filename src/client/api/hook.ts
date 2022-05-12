@@ -19,7 +19,7 @@ export default function useApi<T extends apiName[]>(
   // 初始化axios
   if (!axiosInstance) {
     axiosInstance = axios.create({
-      baseURL: 'http://localhost:3012/api/',
+      baseURL: '/api/',
     });
     axiosInstance.interceptors.request.use(...initRequestInterceptors());
     axiosInstance.interceptors.response.use(
