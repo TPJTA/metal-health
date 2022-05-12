@@ -14,6 +14,7 @@ export class AnalyseTrackingService {
     const curDate = moment().format('YYYY-MM-DD');
     let analyse = await this.analyse.findOne({
       where: { createTime: curDate, type },
+      cache: true,
     });
     if (!analyse) {
       analyse = new Analyse();
