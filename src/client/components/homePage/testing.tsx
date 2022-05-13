@@ -1,4 +1,4 @@
-import { Card } from 'antd';
+import { Card, Skeleton } from 'antd';
 import React, { useEffect, useState } from 'react';
 import styles from './testing.module.scss';
 import Image from 'next/image';
@@ -24,34 +24,40 @@ function Testing() {
       <p className={styles['testing-title']}>心理测试</p>
       <p className={styles['testing-desc']}>认识自己，了解他人</p>
       <div className={styles['testing-box']}>
-        {testingList.map((i, index) => (
-          <Card
-            onClick={() => router.push(`/testing/${i.id}`)}
-            className={styles['testing-item']}
-            key={index}
-            hoverable
-            cover={
-              <Image
-                src={process.env.NEXT_PUBLIC_ORIGIN + i.cover}
-                alt=""
-                width="550px"
-                height="225px"
-              />
-            }
-          >
-            <div className={styles['testing-button']}>去测试</div>
-            <div className={styles['testing-item-name']}>{i.name}</div>
-            <div className={styles['testing-item-extend']}>
-              <TestingTag type={i.type} />
-              <div className={styles['testing-item-times']}>
-                {i.times}人测试过
+        <Skeleton
+          active
+          paragraph={{ rows: 20 }}
+          loading={testingList.length === 0}
+        >
+          {testingList.map((i, index) => (
+            <Card
+              onClick={() => router.push(`/testing/${i.id}`)}
+              className={styles['testing-item']}
+              key={index}
+              hoverable
+              cover={
+                <Image
+                  src={process.env.NEXT_PUBLIC_ORIGIN + i.cover}
+                  alt=""
+                  width="550px"
+                  height="225px"
+                />
+              }
+            >
+              <div className={styles['testing-button']}>去测试</div>
+              <div className={styles['testing-item-name']}>{i.name}</div>
+              <div className={styles['testing-item-extend']}>
+                <TestingTag type={i.type} />
+                <div className={styles['testing-item-times']}>
+                  {i.times}人测试过
+                </div>
               </div>
-            </div>
-            <div className={styles['testing-item-desc']}>
-              {htmlToText(i.desc)}
-            </div>
-          </Card>
-        ))}
+              <div className={styles['testing-item-desc']}>
+                {htmlToText(i.desc)}
+              </div>
+            </Card>
+          ))}
+        </Skeleton>
       </div>
     </div>
   );
