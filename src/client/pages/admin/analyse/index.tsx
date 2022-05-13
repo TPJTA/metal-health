@@ -158,7 +158,10 @@ function Analyse() {
 
   return (
     <div className={styles['analyse-page']}>
-      <Script strategy="beforeInteractive" src="/socket.io.min.js" />
+      <Script
+        strategy="beforeInteractive"
+        src={process.env.NEXT_PUBLIC_ORIGIN + '/socket.io.min.js'}
+      />
       <div className={styles['analyse-header']}>
         <Link href="/admin/analyse/visite" passHref>
           <AnalyseItem
