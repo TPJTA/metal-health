@@ -91,7 +91,8 @@ function Analyse() {
         window.setTimeout(openSocket, 100);
         return;
       }
-      socket = window.io('ws://localhost:3012', { path: '/socket.io' });
+      const host = new URL(process.env.NEXT_PUBLIC_ORIGIN as string).host;
+      socket = window.io(`ws://${host}`, { path: '/socket.io' });
       socket.on('esm_stats', function (data) {
         const { os, responses } = data;
         if (
@@ -158,10 +159,7 @@ function Analyse() {
 
   return (
     <div className={styles['analyse-page']}>
-      <Script
-        strategy="beforeInteractive"
-        src={process.env.NEXT_PUBLIC_ORIGIN + '/socket.io.min.js'}
-      />
+      <Script strategy="beforeInteractive" src="/socket.io.min.js" />
       <div className={styles['analyse-header']}>
         <Link href="/admin/analyse/visite" passHref>
           <AnalyseItem
