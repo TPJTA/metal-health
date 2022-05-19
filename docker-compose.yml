@@ -1,0 +1,28 @@
+version: '1.0'
+services:
+  metal-health:
+    build: .
+    ports:
+      - 3012:3012
+    working_dir: /app
+    volumes:
+      - metal-health-assets:/app/src/server/public
+    environment:
+      TYPEORM_CONNECTION: mysql
+      TYPEORM_HOST: mysql
+      TYPEORM_DATABASE: meathhealth
+      TYPEORM_USERNAME: root
+      TYPEORM_PASSWORD: passWord
+      TYPEORM_PORT: 3306
+      TYPEORM_ENTITIES: dist/**/*.entity.js
+      TYPEORM_SYNCHRONIZE: true
+  mysql:
+    image: mysql:8.0.29
+    volumes:
+      - metal-health-mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: passWord
+      MYSQL_DATABASE: meathhealth
+volumes:
+  metal-health-assets:
+  metal-health-mysql:
