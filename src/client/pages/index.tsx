@@ -10,7 +10,7 @@ const Home: NextPage = function () {
   return (
     <div className={styles['main']}>
       <Head>
-        <title>首页</title>
+        <title>test首页</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
       <Banner />
